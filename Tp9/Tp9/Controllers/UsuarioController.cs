@@ -44,4 +44,24 @@ public class UsuarioController : ControllerBase
         repo.Create(newUsuario);
         return Ok(repo.GetAll());
     }
+    
+    [HttpDelete]
+    [Route("DeleteUsuario")]
+    public ActionResult<List<Usuario>> DeleteUsuarioID(int Id){
+        UsuariosRepository repo = new UsuariosRepository();
+        repo.Remove(Id);
+        return Ok(repo.GetAll());
+    }
+    [HttpPut]
+    [Route("UpdateUsuario")]
+    public ActionResult<List<Usuario>> UpdateUsuario(Usuario usuario){
+        UsuariosRepository repo = new UsuariosRepository();
+        repo.Update(usuario);
+        return Ok(repo.GetAll());
+    }
+
+
+
+    
+
 }

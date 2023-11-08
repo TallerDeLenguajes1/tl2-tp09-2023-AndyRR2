@@ -1669,11 +1669,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Taller_2\\Tp9\\Tp9\\Tp9.csproj",
+      "projectUniqueName": "C:\\Taller_2\\tl2-tp09-2023-AndyRR2\\Tp9\\Tp9\\Tp9.csproj",
       "projectName": "Tp9",
-      "projectPath": "C:\\Taller_2\\Tp9\\Tp9\\Tp9.csproj",
+      "projectPath": "C:\\Taller_2\\tl2-tp09-2023-AndyRR2\\Tp9\\Tp9\\Tp9.csproj",
       "packagesPath": "C:\\Users\\andya\\.nuget\\packages\\",
-      "outputPath": "C:\\Taller_2\\Tp9\\Tp9\\obj\\",
+      "outputPath": "C:\\Taller_2\\tl2-tp09-2023-AndyRR2\\Tp9\\Tp9\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\andya\\AppData\\Roaming\\NuGet\\NuGet.Config"
