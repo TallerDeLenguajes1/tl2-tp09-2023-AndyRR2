@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using EspacioUsuario;
 
-namespace EspacioRepository{
+namespace EspacioUsuarioRepository{
 public interface IUsuariosRepository
 {
     public List<Usuario> GetAll();

@@ -2,7 +2,7 @@ namespace EspacioUsuarioController;
 using Microsoft.AspNetCore.Mvc;
 
 using EspacioUsuario;
-using EspacioRepository;
+using EspacioUsuarioRepository;
 using Microsoft.AspNetCore.DataProtection.Repositories;
 
 [ApiController]
@@ -59,9 +59,5 @@ public class UsuarioController : ControllerBase
         repo.Update(usuario);
         return Ok(repo.GetAll());
     }
-
-
-
-    
 
 }

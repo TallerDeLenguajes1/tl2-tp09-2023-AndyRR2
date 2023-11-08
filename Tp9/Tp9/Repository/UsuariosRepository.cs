@@ -6,11 +6,9 @@ using System.Data.SQLite;
 using EspacioUsuario;
 using System.Data.Entity.Migrations.Model;
 
-namespace EspacioRepository{
+namespace EspacioUsuarioRepository{
     public class UsuariosRepository : IUsuariosRepository
     {
-        private List<Usuario> listaDeUsuarios = new List<Usuario>();
-        public List<Usuario> ListaDeUsuarios { get => listaDeUsuarios; set => listaDeUsuarios = value; }
         private string cadenaConexion = "Data Source=C:/Taller_2/tl2-tp09-2023-AndyRR2/Tp8/kamban.db;Cache=Shared";
         public List<Usuario> GetAll(){
             var queryString = @"SELECT * FROM Usuario;";
@@ -31,7 +29,6 @@ namespace EspacioRepository{
                     }
                 }
                 connection.Close();
-                ListaDeUsuarios = usuarios;
             }
             return usuarios;
         }
