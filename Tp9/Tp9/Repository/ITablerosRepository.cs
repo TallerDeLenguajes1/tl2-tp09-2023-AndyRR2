@@ -10,8 +10,9 @@ public interface ITablerosRepository
 {
     public Tablero Create(Tablero newTablero);
     public List<Tablero> GetAll();
-    /*public Tablero GetById(int Id);
+    public Tablero GetById(int Id);
     public void Remove(int Id);
-    public void Update(Tablero usuario);*/
+    public void Update(Tablero usuario);
+    public List<Tablero> GetListaTableros(int Id);
 }
 }

@@ -18,26 +18,19 @@ public class UsuarioController : ControllerBase
         //Usuario usuario = new Usuario();
     }
 
-    [HttpGet(Name = "Nombre Usuario")]
-    public ActionResult<string> GetNombreUsuario(){
-        if (usuario!=null)
-      {
-        return Ok(usuario.Nombre);
-      }else
-      {
-        return NotFound("No existe un usuario");
-      }
-    }
-
-    [HttpGet]
-    [Route("ListarUsuarios")]
+    [HttpGet("api/usuario")]
     public ActionResult<List<Usuario>> GetUsuarios(){
         UsuariosRepository repo = new UsuariosRepository();
         return Ok(repo.GetAll());
     }
 
-    [HttpPut]
-    [Route("AgregarUsuario")]
+    [HttpGet("api/usuario/{Id}")]
+    public ActionResult<Usuario> GetUsuarioID(int Id){
+        UsuariosRepository repo = new UsuariosRepository();
+        return Ok(repo.GetById(Id));
+    }
+
+    [HttpPost("api/usuario")]
     public ActionResult<List<Usuario>> AddUsuario(Usuario newUsuario){
         //Usuario newUsuario = new Usuario(id,nombre);
         UsuariosRepository repo = new UsuariosRepository();
@@ -45,15 +38,14 @@ public class UsuarioController : ControllerBase
         return Ok(repo.GetAll());
     }
     
-    [HttpDelete]
-    [Route("DeleteUsuario")]
+    [HttpDelete("api/usuario/{Id}")]
     public ActionResult<List<Usuario>> DeleteUsuarioID(int Id){
         UsuariosRepository repo = new UsuariosRepository();
         repo.Remove(Id);
         return Ok(repo.GetAll());
     }
-    [HttpPut]
-    [Route("UpdateUsuario")]
+    
+    [HttpPut("api/usuario/{Id}/nombre")]
     public ActionResult<List<Usuario>> UpdateUsuario(Usuario usuario){
         UsuariosRepository repo = new UsuariosRepository();
         repo.Update(usuario);

@@ -6,6 +6,7 @@ using System.Data.SQLite;
 using EspacioTablero;
 using EspacioUsuario;
 using System.Data.Entity.Migrations.Model;
+using Microsoft.AspNetCore.Http.Connections;
 
 namespace EspacioTableroRepository{
     public class TablerosRepository : ITablerosRepository
@@ -51,6 +52,92 @@ namespace EspacioTableroRepository{
                 connection.Close();   
             }
             return(newTablero);
+        }
+
+        public Tablero GetById(int Id){
+            var tablero = new Tablero();
+
+            SQLiteConnection connection = new SQLiteConnection(cadenaConexion);
+            SQLiteCommand command = connection.CreateCommand();
+            command.CommandText = "SELECT * FROM Tablero WHERE id = @Id";
+            command.Parameters.Add(new SQLiteParameter("@Id", Id));
+            connection.Open();
+            using(SQLiteDataReader reader = command.ExecuteReader())
+            {
+                while (reader.Read())
+                {
+                    tablero.Id = Convert.ToInt32(reader["id"]);
+                    tablero.IdUsuarioPropietario = Convert.ToInt32(reader["id_usuario_propietario"]);
+                    tablero.Nombre= reader["nombre"].ToString();
+                    tablero.Descripcion= reader["descripcion"].ToString();
+                }
+            }
+            connection.Close();
+            return(tablero);
+        }
+        public void Update(Tablero tablero){
+            SQLiteConnection connection = new SQLiteConnection(cadenaConexion);
+            using (connection)
+            {
+                connection.Open();
+                SQLiteCommand command = connection.CreateCommand();
+                using (command)
+                {
+                    command.CommandText = "UPDATE Tablero SET nombre = @name, id_usuario_propietario = @propietario, descripcion = @descr WHERE id = @Id;";
+                    command.Parameters.AddWithValue("@Id", tablero.Id);
+                    command.Parameters.AddWithValue("@name", tablero.Nombre);
+                    command.Parameters.AddWithValue("@propietario", tablero.IdUsuarioPropietario);
+                    command.Parameters.AddWithValue("@descr", tablero.Descripcion);
+                    command.ExecuteNonQuery();
+                }
+                connection.Close();   
+            }
+        }
+        public void Remove(int Id){
+            SQLiteConnection connection = new SQLiteConnection(cadenaConexion);
+            using (connection)
+            {
+                connection.Open();
+                SQLiteCommand command = connection.CreateCommand();
+                using (command)
+                {
+                    command.CommandText = "DELETE FROM Tablero WHERE id = @Id";
+                    command.Parameters.AddWithValue("@Id", Id);
+                    command.ExecuteNonQuery();      
+                }
+                connection.Close();
+            }
+        }
+
+        public List<Tablero> GetListaTableros(int Id){
+            List<Tablero> tableros = new List<Tablero>();
+            SQLiteConnection connection = new SQLiteConnection(cadenaConexion);
+            using(connection)
+            {
+                connection.Open();
+                SQLiteCommand command = connection.CreateCommand();
+                using(command)
+                {
+                    command.CommandText = "SELECT * FROM Tablero WHERE id_usuario_propietario = @Id";
+                    command.Parameters.Add(new SQLiteParameter("@Id", Id));
+                    command.ExecuteNonQuery(); 
+                    var reader = command.ExecuteReader();
+                    using (reader)
+                    {
+                        while (reader.Read())
+                        {
+                            var tablero = new Tablero();
+                            tablero.Id = Convert.ToInt32(reader["id"]);
+                            tablero.IdUsuarioPropietario = Convert.ToInt32(reader["id_usuario_propietario"]);
+                            tablero.Nombre = reader["nombre"].ToString();
+                            tablero.Descripcion = reader["descripcion"].ToString();
+                            tableros.Add(tablero);
+                        }
+                    }
+                }
+                connection.Close();
+            }
+            return(tableros);
         }
     }
 }
